@@ -1,6 +1,5 @@
 import { Redis } from '@upstash/redis';
 
-// Vercel će automatski ubaciti ove varijable kada povežemo bazu
 const redis = Redis.fromEnv();
 
 export default async function handler(req, res) {
@@ -9,8 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Ovde definišeš svojih 10 linkova, njihove nazive i da li su aktivni (TRUE/FALSE)
-    // Ovo menja tvoj Google Sheet. Ako neki link hoćeš da ugasiš, samo stavi aktivan: false
+
     const linkoviKonfiguracija = [
       { id: "link_1", naziv: "Upitnik 1", url: "https://docs.google.com/forms/d/e/1FAIpQLSfewqwISzuJqDPGsQNVKmUtovlZgNiswwwBL9tv5xgUd3Ex6g/viewform", aktivan: true },
       { id: "link_2", naziv: "Upitnik 2", url: "https://docs.google.com/forms/d/e/1FAIpQLScb7MrSWUHcksTGB3vi7XAcRrPCoMBDLsi8ggiEenKZ0Poa8g/viewform", aktivan: true },
@@ -24,18 +22,16 @@ export default async function handler(req, res) {
       { id: "link_10", naziv: "Upitnik 10", url: "https://docs.google.com/forms/d/e/1FAIpQLSdyln4TJhUExqkJGRoHAmLNzDWFGpF5Et9aLxPqnuArojmIXg/viewform", aktivan: true }
     ];
 
-    // 2. Filtriramo samo aktivne linkove (isto kao tvoj stari kod)
     const aktivniKandidati = linkoviKonfiguracija.filter(l => l.aktivan && l.url);
 
     if (aktivniKandidati.length === 0) {
       return res.status(400).json({ error: 'Nema aktivnih linkova u sistemu.' });
     }
 
-    // 3. Povlačimo trenutni broj klikova iz Redis baze SAMO za aktivne linkove odjednom (MGET je super brz)
     const kljucevi = aktivniKandidati.map(k => k.id);
     const klikoviIzBaze = await redis.mget(...kljucevi);
 
-    // Spajamo konfiguraciju sa trenutnim brojem klikova iz baze
+
     const kandidatiSaStanjem = aktivniKandidati.map((kandidat, index) => {
       const br = klikoviIzBaze[index];
       return {
@@ -44,21 +40,16 @@ export default async function handler(req, res) {
       };
     });
 
-    // 4. Pronalazimo najmanji broj klikova među kandidatima
     const minBroj = Math.min(...kandidatiSaStanjem.map(c => c.broj));
 
-    // 5. Filtriramo sve koji dele taj najmanji broj (tvoja logika)
     const najmanjeKorisceni = kandidatiSaStanjem.filter(c => c.broj === minBroj);
 
-    // 6. Nasumično biramo jednog od njih (tvoja logika)
     const chosen = najmanjeKorisceni[
       Math.floor(Math.random() * najmanjeKorisceni.length)
     ];
 
-    // 7. Povećavamo brojač u bazi za izabrani link (+1)
     await redis.incr(chosen.id);
 
-    // 8. Vraćamo URL klijentu
     return res.status(200).json({ url: chosen.url });
 
   } catch (error) {
