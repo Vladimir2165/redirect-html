@@ -1,8 +1,8 @@
-import { Redis } from '@upstash/redis';
+const { Redis } = require('@upstash/redis');
 
 const redis = Redis.fromEnv();
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Metoda nije dozvoljena' });
   }
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       { id: "link_10", naziv: "Upitnik 10", url: "https://docs.google.com/forms/d/e/1FAIpQLSdyln4TJhUExqkJGRoHAmLNzDWFGpF5Et9aLxPqnuArojmIXg/viewform", aktivan: true }
     ];
 
-    const aktivniKandidati = linkoviKonfiguracija.filter(l => l.aktivan && l.url);
+   const aktivniKandidati = linkoviKonfiguracija.filter(l => l.aktivan && l.url);
 
     if (aktivniKandidati.length === 0) {
       return res.status(400).json({ error: 'Nema aktivnih linkova u sistemu.' });
@@ -30,7 +30,6 @@ export default async function handler(req, res) {
 
     const kljucevi = aktivniKandidati.map(k => k.id);
     const klikoviIzBaze = await redis.mget(...kljucevi);
-
 
     const kandidatiSaStanjem = aktivniKandidati.map((kandidat, index) => {
       const br = klikoviIzBaze[index];
@@ -41,9 +40,8 @@ export default async function handler(req, res) {
     });
 
     const minBroj = Math.min(...kandidatiSaStanjem.map(c => c.broj));
-
     const najmanjeKorisceni = kandidatiSaStanjem.filter(c => c.broj === minBroj);
-
+    
     const chosen = najmanjeKorisceni[
       Math.floor(Math.random() * najmanjeKorisceni.length)
     ];
@@ -56,4 +54,4 @@ export default async function handler(req, res) {
     console.error("Greška na serveru:", error);
     return res.status(500).json({ error: "Interna greška servera" });
   }
-}
+};
