@@ -1,61 +1,100 @@
- <!doctype html>
-    <html>
-      <head>
-        <base target="_top">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Preferencija prema povlađujućim odgovorima ChatGPT-a i implikacije na procenu principa usklađenosti (HHH)</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            padding: 24px;
-            line-height: 1.5;
-            max-width: 700px;
-            margin: 0 auto;
+<!doctype html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferencija prema povlađujućim odgovorima ChatGPT-a i implikacije na procenu principa usklađenosti (HHH)</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 24px;
+        line-height: 1.5;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 14px 22px;
+        background: #1a73e8;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 18px;
+        cursor: pointer; /* Dodato da kursor i dalje bude ruka iako nema href-a */
+        border: none;
+      }
+
+      /* Stil za onemogućeno dugme tokom učitavanja */
+      .button:disabled {
+        background: #a0c3ff;
+        cursor: not-allowed;
+      }
+
+      .note {
+        margin-top: 20px;
+        color: #555;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Preferencija prema povlađujućim odgovorima ChatGPT-a i implikacije na procenu principa usklađenosti (HHH)</h2>
+
+    <p>
+      Hvala Vam na interesovanju za učešće u istraživanju.
+    </p>
+
+    <p>
+      Klikom na dugme ispod bićete preusmereni na upitnik.
+    </p>
+
+    <button class="button" id="btn-pokreni" onclick="pokreniAnketu()">
+      Pokreni upitnik
+    </button>
+
+    <p class="note">Vladimir Ćurčić: 
+      <a href="mailto:vladimiracurcic@gmail.com">vladimiracurcic@gmail.com</a>
+    </p>
+   
+
+    <script>
+      async function pokreniAnketu() {
+        const dugme = document.getElementById('btn-pokreni');
+        
+        // Onemogućavamo dugme i menjamo tekst da korisnik ne bi kliknuo više puta
+        dugme.disabled = true;
+        dugme.innerText = "Učitavanje upitnika...";
+
+        try {
+          // Šaljemo POST zahtev našoj serverless funkciji
+          const response = await fetch('/api/distribucija', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          
+          const data = await response.json();
+          
+          if (data.url) {
+            // Preusmeravanje na izabrani Google Form upitnik
+            window.location.href = data.url;
+          } else {
+            alert("Greška: " + (data.error || "Nije moguće dobiti link."));
+            // Vraćamo dugme u prvobitno stanje ako pukne algoritam
+            dugme.disabled = false;
+            dugme.innerText = "Pokreni upitnik";
           }
+        } catch (err) {
+          console.error("Došlo je do greške:", err);
+          alert("Došlo je do greške pri povezivanju sa serverom. Pokušajte ponovo.");
+          // Vraćamo dugme u prvobitno stanje u slučaju mrežne greške
+          dugme.disabled = false;
+          dugme.innerText = "Pokreni upitnik";
+        }
+      }
+    </script>
+  </body>
+</html>
 
-          .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 14px 22px;
-            background: #1a73e8;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 18px;
-          }
-
-          .note {
-            margin-top: 20px;
-            color: #555;
-            font-size: 14px;
-          }
-        </style>
-      </head>
-      <body>
-        <h2>Preferencija prema povlađujućim odgovorima ChatGPT-a i implikacije na procenu principa usklađenosti (HHH)
-</h2>
-
-        <p>
-          Hvala Vam na interesovanju za učešće u istraživanju.
-        </p>
-
-        <p>
-          Klikom na dugme ispod bićete preusmereni na upitnik.
-        </p>
-
-        <a class="button" href="https://script.google.com/macros/s/AKfycbw6oe2mILBiTcDARR935Mi3EZh7g_YTrCbodr-vxXtz567D7PFqXqrK6sWadkvLyquh/exec">
-          Pokreni upitnik
-        </a>
-
-        <p class="note">
-          Ako se stranica ne otvori pravilno u Facebook aplikaciji, pokušajte opciju
-          „Open in browser“ / „Otvori u pregledaču“.
-        </p>
-
-        <p>Vladimir Ćurčić: 
-          <a href="mailto:vladimiracurcic@gmail.com">vladimiracurcic@gmail.com</a>
-        </p>
-      </body>
-    </html>
- 
