@@ -10,16 +10,16 @@ module.exports = async function handler(req, res) {
   try {
 
     const linkoviKonfiguracija = [
-      { id: "link_1", naziv: "Upitnik 1", url: "https://docs.google.com/forms/d/e/1FAIpQLSfewqwISzuJqDPGsQNVKmUtovlZgNiswwwBL9tv5xgUd3Ex6g/viewform", aktivan: true },
-      { id: "link_2", naziv: "Upitnik 2", url: "https://docs.google.com/forms/d/e/1FAIpQLScb7MrSWUHcksTGB3vi7XAcRrPCoMBDLsi8ggiEenKZ0Poa8g/viewform", aktivan: true },
-      { id: "link_3", naziv: "Upitnik 3", url: "https://docs.google.com/forms/d/e/1FAIpQLScQPaaSo935k8XVXG0j6FN-_ydKzaYYtGbg1jvHMMVq3CZ1tA/viewform", aktivan: true },
-      { id: "link_4", naziv: "Upitnik 4", url: "https://docs.google.com/forms/d/e/1FAIpQLSfyJAFaytDrWCJ5Pq231IkD49MTpryOEmCWoTBf-Qk0WwOYcg/viewform", aktivan: true },
-      { id: "link_5", naziv: "Upitnik 5", url: "https://docs.google.com/forms/d/e/1FAIpQLSevtIdhdlwzMbSXjvUezU8ObovPLU6L5eoBkaCJlsyP7dj3BQ/viewform", aktivan: true },
-      { id: "link_6", naziv: "Upitnik 6", url: "https://docs.google.com/forms/d/e/1FAIpQLScEDRbozscdSCHi9u7swg_cGtw2svfj3Liv89dqiCDbb0yR8w/viewform", aktivan: true },
-      { id: "link_7", naziv: "Upitnik 7", url: "https://docs.google.com/forms/d/e/1FAIpQLSeLCuT8sE5W0cjFbtapmGsgXo6vzh9GttxJRtOCleb-cAg0sQ/viewform", aktivan: true },
-      { id: "link_8", naziv: "Upitnik 8", url: "https://docs.google.com/forms/d/e/1FAIpQLSdeaoN-fMEgaJQWbzPGQTh0RdwfPWDSE4b5m_36tOS5sLTioA/viewform", aktivan: true },
-      { id: "link_9", naziv: "Upitnik 9", url: "https://docs.google.com/forms/d/e/1FAIpQLSde325u6DPBjWXm1uunAWR6mU17Au75K7EsUHYyxXA8EwaJYQ/viewform", aktivan: true },
-      { id: "link_10", naziv: "Upitnik 10", url: "https://docs.google.com/forms/d/e/1FAIpQLSdyln4TJhUExqkJGRoHAmLNzDWFGpF5Et9aLxPqnuArojmIXg/viewform", aktivan: true }
+      { id: "link_1", naziv: "Upitnik 1", url: "https://docs.google.com/forms/d/e/1FAIpQLSdRwt1ePICIk_1eFCqJTj7TzWh5_F83d-HRgRe6ibD6xd9FnA/viewform", aktivan: true },
+      { id: "link_2", naziv: "Upitnik 2", url: "https://docs.google.com/forms/d/e/1FAIpQLSejGfxzWkfccjJ2v8W2DXRhNHSWrKp7CazBsORDdSsBRNaxqQ/viewform", aktivan: true },
+      { id: "link_3", naziv: "Upitnik 3", url: "https://docs.google.com/forms/d/e/1FAIpQLScpHT_FijYR2kSYrktP47DT5tX2563wu9j45PwQnxl26ZEcGQ/viewform", aktivan: true },
+      { id: "link_4", naziv: "Upitnik 4", url: "https://docs.google.com/forms/d/e/1FAIpQLSdUSE0UTBamjsN8M5WlKrq0WzGwKQ_faKLCfahAP8hZcIq67Q/viewform", aktivan: true },
+      { id: "link_5", naziv: "Upitnik 5", url: "https://docs.google.com/forms/d/e/1FAIpQLSfwo_lc1Cs5d34VzqtAgs1eMk8hiWtqAzAG5pZV9hlAEHOMYg/viewform", aktivan: true },
+      { id: "link_6", naziv: "Upitnik 6", url: "https://docs.google.com/forms/d/e/1FAIpQLSfCMjEi1xDZkqypefV82ib3hBJArgT7-cD09uaB9pz6UwGtBw/viewform", aktivan: true },
+      { id: "link_7", naziv: "Upitnik 7", url: "https://docs.google.com/forms/d/e/1FAIpQLSf0fvBeRqpXbzUpZWIiIl-_AztcF-lCGaqXXgh2G_fOMwU0tQ/viewform", aktivan: true },
+      { id: "link_8", naziv: "Upitnik 8", url: "https://docs.google.com/forms/d/e/1FAIpQLScpRh8g4W65zP6PuD-rLGBVgrD2uTmoBjnj-45SgkciCQe7mw/viewform", aktivan: true },
+      { id: "link_9", naziv: "Upitnik 9", url: "https://docs.google.com/forms/d/e/1FAIpQLScQORW3JWLnAuM-9VkwNyqrH8jB0QUt0USfgPzrS959gol5kQ/viewform", aktivan: true },
+      { id: "link_10", naziv: "Upitnik 10", url: "https://docs.google.com/forms/d/e/1FAIpQLSedxYGfIr2rcwPl8KRCatYJF-77jEoFgPE84YxgitV_RbXNQg/viewform", aktivan: true }
     ];
 
    const aktivniKandidati = linkoviKonfiguracija.filter(l => l.aktivan && l.url);
