@@ -10,10 +10,10 @@ module.exports = async function handler(req, res) {
   try {
 
     const linkoviKonfiguracija = [
-      { id: "link_1", naziv: "Upitnik 1", url: "https://docs.google.com/forms/d/e/1FAIpQLSdjfNXiETeL17V4KPVkPlwrj7x8Jkv5qQ7Myx3BlbYDsmi2Yw/viewform", aktivan: true },
-      { id: "link_2", naziv: "Upitnik 2", url: "https://docs.google.com/forms/d/e/1FAIpQLSfwcBzWDoNioK2D3Qa7ApEk82wrclGLs-AAR2iRgX_4mL42Hw/viewform", aktivan: true },
-      { id: "link_3", naziv: "Upitnik 3", url: "https://docs.google.com/forms/d/e/1FAIpQLSfagTCoenqAE1XolaJUKVn-EmKeQVt0rkZLOgIhPd9oK96APw/viewform", aktivan: true },
-      { id: "link_4", naziv: "Upitnik 4", url: "https://docs.google.com/forms/d/e/1FAIpQLSfkSQe2vr_cZqBwrK2-Vqx4q3rI5rzv83T6tv42DF8UVYIbUQ/viewform", aktivan: true },
+      { id: "link_1", naziv: "Upitnik 1", url: "https://docs.google.com/forms/d/e/1FAIpQLSfVJAi_Gh_ui11VcLEfpWWLo4m6KD8jsFZK_OlcfPFf_Y2vqA/viewform", aktivan: true },
+      { id: "link_2", naziv: "Upitnik 2", url: "https://docs.google.com/forms/d/e/1FAIpQLScgjDf9AYY1KRpm8UjsmicCNt6vTTaIWraLyP2OaVOmkASj7A/viewform", aktivan: true },
+      { id: "link_3", naziv: "Upitnik 3", url: "https://docs.google.com/forms/d/e/1FAIpQLSfhP7S2vp8vGtybQw4OMJ1eXjFaZS6aNf3raHtZViXv6V1-Ng/viewform", aktivan: true },
+      { id: "link_4", naziv: "Upitnik 4", url: "https://docs.google.com/forms/d/e/1FAIpQLSeg5Af0WCury_--oaSCD8xCoV1Y_x4HOlinlVGITwMhCFBA-g/viewform", aktivan: true },
     ];
 
    const aktivniKandidati = linkoviKonfiguracija.filter(l => l.aktivan && l.url);
